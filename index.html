@@ -1,91 +1,405 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Perry Liang</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Perry Liang | ECE, AI & Research Portfolio</title>
+
   <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --border: #e5e7eb;
+      --accent: #eef4ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      max-width: 800px;
-      margin: 60px auto;
-      padding: 0 24px;
-      line-height: 1.6;
-      color: #222;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
     }
 
-    h1 {
-      font-size: 42px;
-      margin-bottom: 8px;
+    header {
+      background: linear-gradient(135deg, #0f172a, #1e3a8a);
+      color: white;
+      padding: 80px 24px 70px;
+      text-align: center;
     }
 
-    .subtitle {
-      color: #666;
-      font-size: 18px;
+    header h1 {
+      font-size: 48px;
+      margin: 0 0 14px;
+      letter-spacing: -1px;
+    }
+
+    header p {
+      max-width: 820px;
+      margin: 0 auto;
+      font-size: 19px;
+      color: #dbeafe;
+    }
+
+    nav {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      text-align: center;
+      padding: 14px 10px;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      margin: 0 12px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 45px 24px;
     }
 
     section {
-      margin-top: 40px;
+      margin-bottom: 58px;
+    }
+
+    h2 {
+      font-size: 30px;
+      margin-bottom: 20px;
+      border-left: 5px solid var(--primary);
+      padding-left: 12px;
+    }
+
+    .intro-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
     }
 
     .card {
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      padding: 18px;
-      margin-top: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    a {
-      color: #0969da;
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.09);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--primary-dark);
+      font-size: 21px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--primary-dark);
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin: 4px 4px 4px 0;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .button-row {
+      margin-top: 24px;
+    }
+
+    .button {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 11px 18px;
+      border-radius: 10px;
       text-decoration: none;
+      font-weight: 700;
+      margin: 6px 8px 6px 0;
+    }
+
+    .button.secondary {
+      background: #111827;
+    }
+
+    .button:hover {
+      opacity: 0.9;
+    }
+
+    footer {
+      text-align: center;
+      padding: 36px 20px;
+      background: #111827;
+      color: #d1d5db;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+
+    @media (max-width: 700px) {
+      header h1 {
+        font-size: 36px;
+      }
+
+      header p {
+        font-size: 17px;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 6px 8px;
+      }
     }
   </style>
 </head>
+
 <body>
-  <h1>Perry Liang</h1>
-  <p class="subtitle">
-    Electrical and Computer Engineering Student | AI | Data Analysis | Computer Vision
-  </p>
-
-  <section>
-    <h2>About Me</h2>
+  <header>
+    <h1>Perry Liang</h1>
     <p>
-      I am an Electrical and Computer Engineering student at the University of Missouri–Kansas City.
-      My interests include AI, data analysis, computer vision, communication systems, and robotics.
+      Electrical and Computer Engineering student at UMKC with interests in AI, data analysis,
+      computer vision, communication systems, robotics, and research-driven engineering.
     </p>
-  </section>
 
-  <section>
-    <h2>Projects</h2>
-
-    <div class="card">
-      <h3>ChladniVision</h3>
-      <p>
-        A computer vision project for recognizing Chladni pattern frequencies using image processing
-        and machine learning.
-      </p>
+    <div class="button-row">
+      <a class="button" href="mailto:p0343974@gmail.com">Contact Me</a>
+      <a class="button secondary" href="https://github.com/Perry-BIS" target="_blank">GitHub</a>
     </div>
+  </header>
 
-    <div class="card">
-      <h3>MeetHalfWay</h3>
-      <p>
-        A location-based coordination system that helps users find fair and convenient meeting points.
-      </p>
-    </div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#honors">Honors</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-    <div class="card">
-      <h3>AI + Communication Research</h3>
-      <p>
-        Research exploration on HAP/LEO networks, semantic control, and AI-assisted handover optimization.
-      </p>
-    </div>
-  </section>
+  <main>
+    <section id="about">
+      <h2>About Me</h2>
+      <div class="intro-card">
+        <p>
+          I am an Electrical and Computer Engineering student at the University of Missouri–Kansas City,
+          currently maintaining a 4.0 GPA. My academic and project interests sit at the intersection of
+          electrical engineering, artificial intelligence, data analytics, computer vision, embedded systems,
+          and communication networks.
+        </p>
 
-  <section>
-    <h2>Contact</h2>
-    <p>Email: p0343974@gmail.com</p>
-    <p>
-      <a href="https://github.com/Perry-BIS">GitHub</a>
-    </p>
-  </section>
+        <p>
+          I am especially interested in building practical AI-enabled systems that connect algorithms with
+          real-world engineering problems, including medical image processing, intelligent sensing, geolocation
+          systems, and AI-assisted network optimization.
+        </p>
+
+        <span class="tag">Electrical & Computer Engineering</span>
+        <span class="tag">Artificial Intelligence</span>
+        <span class="tag">Data Analysis</span>
+        <span class="tag">Computer Vision</span>
+        <span class="tag">Embedded Systems</span>
+        <span class="tag">Robotics</span>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2>Research & Experience</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Research Assistant — dSAIC</h3>
+          <p class="meta">Data Science and Analytics Innovation Center | Jan 2026 – Present</p>
+          <ul>
+            <li>Conduct data analysis and predictive modeling using environmental, weather, and policy-related factors.</li>
+            <li>Support research initiatives through dataset organization, interpretation, and technical collaboration.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Research Assistant — MIGHTY Lab</h3>
+          <p class="meta">Supervised by Dr. Md Ashikuzzaman | Jan 2026 – Present</p>
+          <ul>
+            <li>Assist with data processing for medical image research.</li>
+            <li>Contribute to work related to multidimensional strain elastography frameworks.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Student Ambassador</h3>
+          <p class="meta">UMKC School of Science and Engineering | Jan 2026 – Present</p>
+          <ul>
+            <li>Represent the School of Science and Engineering to prospective students and families.</li>
+            <li>Communicate academic programs, campus resources, and student opportunities in a professional setting.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Selected Projects</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>ChladniVision</h3>
+          <p class="meta">AI-Powered Pattern Recognition</p>
+          <p>
+            Built and explored an AI-based computer vision project for analyzing Chladni-style visual patterns.
+            The project connects image processing and machine learning with physical pattern recognition.
+          </p>
+          <p>
+            <a href="https://github.com/Perry-BIS/ChladniVision-New-Version/tree/main" target="_blank">
+              View Project →
+            </a>
+          </p>
+          <span class="tag">Computer Vision</span>
+          <span class="tag">Machine Learning</span>
+          <span class="tag">Image Processing</span>
+        </div>
+
+        <div class="card">
+          <h3>MeetHalfWay</h3>
+          <p class="meta">Location-Based Social Matching Platform</p>
+          <p>
+            Built a location-based platform that computes fair and convenient meeting points for multiple users
+            using distance optimization and geolocation processing.
+          </p>
+          <p>
+            <a href="https://github.com/Perry-BIS/MeetHalfWay" target="_blank">
+              View Project →
+            </a>
+          </p>
+          <span class="tag">Geolocation</span>
+          <span class="tag">Optimization</span>
+          <span class="tag">Web Development</span>
+        </div>
+
+        <div class="card">
+          <h3>Smart Alcohol Detection System</h3>
+          <p class="meta">Embedded Sensor Fusion Prototype</p>
+          <p>
+            Built a real-time embedded sensing prototype for alcohol vapor and air-quality detection using
+            Arduino, Raspberry Pi, and a multi-sensor array.
+          </p>
+          <span class="tag">Arduino</span>
+          <span class="tag">Raspberry Pi</span>
+          <span class="tag">Sensor Fusion</span>
+          <span class="tag">Embedded Systems</span>
+        </div>
+
+        <div class="card">
+          <h3>AI + Communication Research</h3>
+          <p class="meta">HAP/LEO Networks and Semantic Control</p>
+          <p>
+            Research exploration on high-altitude platforms, LEO satellite networks, semantic control,
+            and AI-assisted handover optimization for future communication systems.
+          </p>
+          <span class="tag">Communication Systems</span>
+          <span class="tag">AI Control</span>
+          <span class="tag">LEO Networks</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Technical Skills</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Programming</h3>
+          <p>Python, C++, HTML, CSS, JavaScript</p>
+        </div>
+
+        <div class="card">
+          <h3>Machine Learning</h3>
+          <p>TensorFlow, SVM, DBSCAN, K-Means, Neural Networks, Random Forest, DQN, LLM</p>
+        </div>
+
+        <div class="card">
+          <h3>Engineering Interests</h3>
+          <p>Data analysis, computer vision, embedded systems, medical image processing, communication systems, robotics</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="honors">
+      <h2>Honors & Awards</h2>
+
+      <div class="card">
+        <ul>
+          <li>UMKC Honors Program</li>
+          <li>Hack-a-Roo AI + Data Science Group — 1st Prize</li>
+          <li>Research-A-Thon SF NRT AI & Engineering Challenges Track — Award Recipient</li>
+          <li>Garmin Scholarship Fund Scholarship, University of Missouri–Kansas City, 2025</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+
+      <div class="card">
+        <p>
+          I am open to internship, research, and project collaboration opportunities in AI, data, software,
+          hardware, machine learning, communication systems, and robotics.
+        </p>
+
+        <p><strong>Email:</strong> <a href="mailto:p0343974@gmail.com">p0343974@gmail.com</a></p>
+        <p><strong>School Email:</strong> <a href="mailto:plhh6@umsystem.edu">plhh6@umsystem.edu</a></p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/Perry-BIS" target="_blank">github.com/Perry-BIS</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Perry Liang. Built with GitHub Pages.</p>
+  </footer>
 </body>
 </html>
