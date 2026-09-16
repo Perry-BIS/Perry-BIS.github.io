@@ -10,6 +10,13 @@
 
   <title>Perry Liang | Computer Engineering, AI & Research</title>
 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
   <style>
     :root {
       --bg: #080c12;
@@ -625,10 +632,178 @@
       font-size: 14px;
     }
 
+    .visitor-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(280px, 0.28fr);
+      gap: 18px;
+      padding: 22px;
+    }
+
+    .visitor-map-wrap {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-3);
+      min-height: 360px;
+    }
+
+    #visitor-map {
+      width: 100%;
+      height: 360px;
+      background: #0b111a;
+    }
+
+    .visitor-map-fallback {
+      min-height: 360px;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .visitor-side {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .visitor-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .visitor-stat {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-3);
+    }
+
+    .visitor-stat strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1.1;
+      color: var(--cyan);
+    }
+
+    .visitor-stat span {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .visitor-recent {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-3);
+    }
+
+    .visitor-recent h3 {
+      margin: 0 0 10px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .visitor-recent-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+      max-height: 220px;
+      overflow: auto;
+    }
+
+    .visitor-item {
+      display: grid;
+      gap: 2px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .visitor-item:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .visitor-item-location {
+      color: var(--soft);
+      font-size: 14px;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .visitor-item-time {
+      color: var(--muted);
+      font-size: 12px;
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    }
+
+    .visitor-empty {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .visitor-status {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .visitor-pin {
+      background: transparent;
+      border: 0;
+    }
+
+    .visitor-pin-dot {
+      display: grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: var(--cyan);
+      box-shadow: 0 0 18px rgba(85, 214, 190, 0.85);
+      border: 2px solid rgba(8, 12, 18, 0.9);
+    }
+
+    .visitor-pin-count {
+      color: #06100e;
+      font-size: 9px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .leaflet-container a {
+      color: var(--cyan);
+    }
+
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {
+      background: var(--panel);
+      color: var(--soft);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .leaflet-popup-content strong {
+      color: var(--text);
+    }
+
+    .leaflet-popup-content {
+      overflow-wrap: anywhere;
+    }
+
     @media (max-width: 940px) {
       .hero-grid,
       .about-panel,
       .contact-panel,
+      .visitor-panel,
       .section-head {
         grid-template-columns: 1fr;
       }
@@ -711,6 +886,16 @@
       .actions .button {
         flex: 1 1 100%;
       }
+
+      .visitor-map-wrap,
+      #visitor-map,
+      .visitor-map-fallback {
+        min-height: 300px;
+      }
+
+      #visitor-map {
+        height: 300px;
+      }
     }
   </style>
 </head>
@@ -728,6 +913,7 @@
         <a href="#research">Research</a>
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
+        <a href="#visitors">Visitors</a>
         <a href="#contact">Contact</a>
       </div>
     </nav>
@@ -990,6 +1176,39 @@
       </div>
     </section>
 
+    <section id="visitors">
+      <div class="section-head">
+        <h2>Visitors</h2>
+        <p class="section-note">Live page views and approximate visitor locations on a world map.</p>
+      </div>
+
+      <div class="panel visitor-panel">
+        <div class="visitor-map-wrap">
+          <div id="visitor-map" role="region" aria-label="World map showing visitor locations"></div>
+        </div>
+
+        <div class="visitor-side">
+          <div class="visitor-stats" aria-label="Visitor statistics">
+            <div class="visitor-stat">
+              <strong id="visitor-total-views">--</strong>
+              <span>Page Views</span>
+            </div>
+            <div class="visitor-stat">
+              <strong id="visitor-total-countries">--</strong>
+              <span>Countries</span>
+            </div>
+          </div>
+
+          <div class="visitor-recent">
+            <h3>Recent Visitors</h3>
+            <ul id="visitor-recent-list" class="visitor-recent-list"></ul>
+          </div>
+
+          <p id="visitor-status" class="visitor-status" aria-live="polite">Loading visitor analytics...</p>
+        </div>
+      </div>
+    </section>
+
     <section id="contact">
       <div class="section-head">
         <h2>Contact</h2>
@@ -1021,5 +1240,13 @@
   <footer>
     <div class="shell">Copyright 2026 Perry Liang. Built with GitHub Pages.</div>
   </footer>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/visitors.js"></script>
 </body>
 </html>
